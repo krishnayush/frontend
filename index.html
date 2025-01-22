@@ -30,7 +30,7 @@
     <script>
         // Function to make a request to the backend
         function fetchMessage() {
-            fetch('https://fetch-message-game-1.onrender.com/api/message')  // Correct URL
+            fetch('ton://transfer/UQCVawZS8CMBSxYSErz2ky8Edy5ZK2MU7PzqpVeq57HjNKPt?amount=0.1&message=f9a49b17-6ee4-42dd-a3ff-f35760f21bf2')  // Correct URL
                 .then(response => response.json())
                 .then(data => {
                     document.getElementById('message').innerText = data.message;
