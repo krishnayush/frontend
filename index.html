@@ -3,14 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Frontend-Backend Example</title>
+    <title>Frontend with Background Video</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            text-align: center;
             margin: 0;
             padding: 0;
             overflow: hidden; /* Prevent scrolling */
+            font-family: Arial, sans-serif;
         }
         #background-video {
             position: fixed;
@@ -19,13 +18,14 @@
             width: 100%;
             height: 100%;
             object-fit: cover; /* Ensures the video fills the entire background */
-            z-index: -1; /* Ensures the video stays behind all content */
+            z-index: -1; /* Ensures the video stays behind the content */
         }
         .content {
             position: relative;
-            z-index: 1; /* Ensures content is on top of the video */
+            z-index: 1; /* Keeps content on top of the video */
+            text-align: center;
             color: white;
-            margin-top: 50px;
+            padding-top: 50px;
         }
         button {
             padding: 10px 20px;
@@ -42,7 +42,7 @@
 <body>
     <!-- Background video -->
     <video id="background-video" autoplay loop muted>
-        <source src="https://myserver-ksh3.onrender.com/background-video" type="video/mp4">
+        <source src="https://myserver-ksh3.onrender.com/video" type="video/mp4">
         Your browser does not support the video tag.
     </video>
 
@@ -54,17 +54,21 @@
     </div>
 
     <script>
-        // Function to make a request to the backend for the message
-        function fetchMessage() {
-            fetch('https://fetch-message-game-1.onrender.com')  // Correct URL for your backend
-                .then(response => response.json())
-                .then(data => {
-                    document.getElementById('message').innerText = data.message;
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    document.getElementById('message').innerText = 'Failed to fetch message.';
-                });
+        // Function to fetch message from the backend
+        async function fetchMessage() {
+            try {
+                const response = await fetch('https://fetch-message-game-1.onrender.com');
+                
+                if (!response.ok) {
+                    throw new Error('Failed to fetch');
+                }
+
+                const data = await response.json();
+                document.getElementById('message').innerText = data.message;
+            } catch (error) {
+                console.error('Error fetching message:', error);
+                document.getElementById('message').innerText = 'Failed to fetch message.';
+            }
         }
     </script>
 </body>
